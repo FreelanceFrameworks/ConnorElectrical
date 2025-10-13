@@ -1,0 +1,42 @@
+{
+  "bookings": {
+    "pi_3NsxYZqABc9": {
+      "payment_intent_id": "pi_3NsxYZqABc9",
+      "customer_name": "Jane Doe",
+      "customer_email": "jane@example.com",
+      "customer_phone": "+61412345678",
+      "date": "2025-09-25",
+      "services": ["s1", "s3"],
+      "amount_cents": 8000,
+      "status": "pending",
+      "created_at": "2025-09-19T10:00:00Z"
+    }
+  },
+  "services": {
+    "s1": {
+      "name": "Service A",
+      "price_cents": 5000,
+      "description": "60 min massage",
+      "active": true
+    },
+    "s2": {
+      "name": "Service B",
+      "price_cents": 3000,
+      "description": "Haircut",
+      "active": true
+    },
+    "s3": {
+      "name": "Extra Add-on",
+      "price_cents": 1000,
+      "description": "Essential oils",
+      "active": true
+    }
+  },
+  "availability": {
+    "2025-09-25": {
+      "date": "2025-09-25",
+      "slots": ["09:00", "10:30", "14:00"],
+      "booked_slots": ["10:30"]
+    }
+  }
+}

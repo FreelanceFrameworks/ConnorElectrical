@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "seed": "node seed.cjs",
+    "wipe": "node wipe.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "firebase-admin": "^13.5.0",
+    "gaxios": "^7.1.2",
+    "googleapi": "^1.0.2",
+    "googleapis": "^161.0.0",
+    "nodemailer": "^7.0.6",
+    "nodemailer-express-handlebars": "^7.0.0",
+    "react-native-svg-transformer": "^1.5.1",
+    "stripe": "^18.5.0",
+    "twilio": "^5.10.0"
+  },
+  "devDependencies": {
+    "@types/twilio": "^3.19.2"
+  }
+}

@@ -1,0 +1,82 @@
+# ==============================
+# 🌐 Root-level Git Ignore
+# ==============================
+
+# Environment files
+.env
+.env.* 
+*.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node modules
+node_modules/
+server/node_modules/
+mobile/node_modules/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Build / Cache
+dist/
+build/
+.cache/
+.expo/
+coverage/
+.gradle/
+android/.gradle/
+android/app/build/
+ios/Pods/
+web-build/
+.expo-shared/
+
+# React Native
+*.keystore
+*.jks
+*.p12
+*.p8
+*.key
+*.mobileprovision
+
+# Temporary Bundles
+*.aab
+*.apk
+*.ipa
+
+# Firebase / Google services
+google-services.json
+GoogleService-Info.plist
+
+# Metro bundler cache
+metro-cache/
+tmp/
+temp/
+
+# Environment & private config
+server/.env
+mobile/.env
+server/.env.local
+mobile/.env.local
+
+# Test / coverage
+jest/
+coverage/
+
+# Ignore lock files if cross-environment
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Misc
+*.iml
+*.bak
+*.tmp
