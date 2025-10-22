@@ -45,7 +45,7 @@ npm install
 Create a .env file:
 
 PORT=5000
-STRIPE_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXXXXXXXXXX
+STRIPE_SECRET_KEY=your_secret_key_here
 
 Run server:
 
