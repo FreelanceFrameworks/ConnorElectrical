@@ -1,98 +1,172 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ⚡️ ConnorElectrical — Full Stack Mobile & Web App
 
-# Getting Started
+React Native + Node.js + Stripe + Firebase Ready
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+A full-stack electrical service management app built for multi-platform deployment (Android, iOS, and Web).
+It supports user authentication, one-time + subscription payments via Stripe, and a backend API for scheduling, jobs, and clients.
 
-## Step 1: Start Metro
+📁 Monorepo Structure
+ConnorElectrical/
+│
+├── server/          # Node.js + Express backend
+│   ├── routes/      # API routes (auth, stripe, etc.)
+│   ├── .env         # Backend environment variables (ignored)
+│   └── index.js     # Backend entry
+│
+├── mobile/          # React Native app
+│   ├── src/         # Screens, components, hooks
+│   ├── android/     # Native Android build
+│   ├── ios/         # Native iOS build
+│   ├── .env         # Mobile environment variables
+│   └── metro.config.js
+│
+├── .gitignore
+└── README.md
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+🚀 Quick Start
+🧩 Prerequisites
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Install these globally:
 
-```sh
-# Using npm
-npm start
+Node.js 22+
+npm or yarn
+Android Studio (for emulator)
+Xcode (for iOS builds)
+Git
 
-# OR using Yarn
-yarn start
-```
+1️⃣ Clone the Repo
+git clone <https://github.com/Chelle77322/ConnorElectrical.git>
+cd ConnorElectrical
 
-## Step 2: Build and run your app
+2️⃣ Backend Setup (Server)
+cd server
+npm install
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Create a .env file:
 
-### Android
+PORT=5000
+STRIPE_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXXXXXXXXXX
 
-```sh
-# Using npm
-npm run android
+Run server:
 
-# OR using Yarn
-yarn android
-```
+npm run dev
 
-### iOS
+✅ Server running on: <http://localhost:5000>
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+Test endpoints:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+POST /api/auth/signup
 
-```sh
-bundle install
-```
+POST /api/auth/login
 
-Then, and every time you update your native dependencies, run:
+POST /api/stripe/create-payment
 
-```sh
-bundle exec pod install
-```
+3️⃣ Frontend Setup (Mobile)
+cd ../mobile
+npm install
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Create .env inside /mobile:
 
-```sh
-# Using npm
-npm run ios
+API_URL=<http://localhost:5000>
+STRIPE_PUBLIC_KEY=pk_test_XXXXXXXXXXXXXXXXXXXXXXXX
 
-# OR using Yarn
-yarn ios
-```
+Start the bundler:
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+npx react-native start --reset-cache
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Run Android:
 
-## Step 3: Modify your app
+npx react-native run-android
 
-Now that you have successfully run the app, let's make changes!
+Run iOS (macOS only):
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+npx react-native run-ios
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+💳 Stripe Integration (Backend)
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+File: /server/routes/stripe.js
 
-## Congratulations! :tada:
+import Stripe from "stripe";
+import express from "express";
+const router = express.Router();
 
-You've successfully run and modified your React Native App. :partying_face:
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-### Now what?
+router.post("/create-payment", async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 1000, // $10.00
+      currency: "usd",
+      automatic_payment_methods: { enabled: true },
+    });
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+export default router;
 
-# Troubleshooting
+In /server/index.js:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+import stripeRoutes from "./routes/stripe.js";
+app.use("/api/stripe", stripeRoutes);
 
-# Learn More
+🌐 Web + QR Page (Optional)
 
-To learn more about React Native, take a look at the following resources:
+You can add a static landing page for QR code access:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-"# ConnorElectrical" 
+// in server/index.js
+app.use(express.static("web"));
+
+Host on your domain and generate QR codes linking to it:
+
+npx qrcode-terminal "<https://yourdomain.com>"
+
+🧠 Environment Variable Recap
+Folder File Key Description
+server .env STRIPE_SECRET_KEY Secret key for Stripe server-side
+mobile .env API_URL API base URL for React Native app
+mobile .env STRIPE_PUBLIC_KEY Publishable key for client payments
+🧱 Build Commands
+Android Release AAB
+cd mobile/android
+./gradlew bundleRelease
+
+iOS Archive
+
+Open in Xcode → Product → Archive → Distribute via App Store.
+🧰 Troubleshooting
+Issue Fix
+require is not defined Use CommonJS syntax in metro.config.js
+error exclusionList is not a function Use blockList import in Metro config
+Stripe no API key Check .env loading and restart server
+Android emulator crashing Wipe AVD data or lower emulator resolution
+🔒 Security Best Practices
+
+✅ .env and keystore files are in .gitignore
+✅ Never commit private Stripe or Firebase keys
+✅ Rotate secrets before going live
+
+🌟 Future Roadmap
+
+🔐 Firebase Auth + Push Notifications
+
+💳 Stripe Pro + One-time payments
+
+📆 Job scheduling dashboard
+
+🌍 Public web portal with QR access
+
+⚙️ CI/CD workflow setup (GitHub Actions)
+
+👩‍💻 Author
+
+Michelle Hall (@FreelanceFrameworks)
+Full Stack Engineer — React Native | Node.js | Stripe | Firebase
+
+📧 LinkedIn
+
+💻 GitHub
+
+🪪 License MIT License © 2025 Michelle Hall
