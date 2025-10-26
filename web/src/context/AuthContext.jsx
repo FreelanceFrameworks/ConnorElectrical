@@ -13,14 +13,14 @@ export const AuthProvider = ({ children }) => {
       setUser(currentUser);
       setLoading(false);
     });
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
-  const logout = async () => await signOut(auth);
+  const logout = () => signOut(auth);
 
   return (
-    <AuthContext.Provider value={{ user, logout }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, loading, logout }}>
+      {children}
     </AuthContext.Provider>
   );
 };
