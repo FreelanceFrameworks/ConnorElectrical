@@ -1,0 +1,123 @@
+/* --- Brand Theme Variables --- */
+:root {
+  --color-primary: #004C70;
+  --color-secondary: #662D91;
+  --color-accent: #4DB8FF;
+  --color-text: #222222;
+  --color-bg: #ffffff;
+}
+
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+  --color-primary: #3AB0FF;
+  --color-secondary: #9B59B6;
+  --color-accent: #6EC1FF;
+  --color-text: #E6E6E6;
+  --color-bg: #121212;
+}
+
+/* --- Smooth Transitions --- */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* --- Base Body Styling --- */
+body {
+  @apply font-sans leading-relaxed;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* --- Header and Footer --- */
+header, footer {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  color: white;
+}
+
+/* --- Buttons --- */
+button,
+.btn {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+}
+button:hover,
+.btn:hover {
+  background-color: var(--color-secondary);
+}
+
+/* --- Cards --- */
+.card {
+  background: var(--color-bg);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  color: var(--color-text);
+}
+
+/* --- Inputs --- */
+input,
+select,
+textarea {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.6rem;
+  width: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(77, 184, 255, 0.3);
+}
+
+/* --- Headings --- */
+h1, h2, h3, h4 {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* --- Links --- */
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: var(--color-accent);
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+  border-top: 3px solid var(--color-accent);
+}
+
+/* --- Utility Classes --- */
+.text-primary {
+  color: var(--color-primary);
+}
+.text-secondary {
+  color: var(--color-secondary);
+}
+.bg-primary {
+  background-color: var(--color-primary);
+}
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+/* --- Dark Mode Transition Fix for Tailwind --- */
+html[data-theme="dark"] * {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

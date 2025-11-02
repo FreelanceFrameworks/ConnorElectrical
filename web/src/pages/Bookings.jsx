@@ -1,5 +1,5 @@
 import { ref, push, onValue } from "firebase/database";
-import { db } from "../firebase";
+import { db, rtdb } from "../api/firebase";
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
@@ -14,6 +14,13 @@ export default function Bookings() {
     onValue(bookingsRef, (snapshot) => {
       const data = snapshot.val() || {};
       setBookings(Object.values(data));
+    });
+  }, []);
+
+  useEffect(() => {
+    const testRef = ref(rtdb, "/testConnection");
+    onValue(testRef, (snapshot) => {
+      console.log("✅ Firebase connected:", snapshot.exists());
     });
   }, []);
 
@@ -34,7 +41,11 @@ export default function Bookings() {
   return (
     <div className="max-w-3xl mx-auto mt-12">
       <h2 className="text-3xl font-bold mb-6 text-center">Book a Service</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 mb-8">
+
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col sm:flex-row gap-4 mb-8"
+      >
         <input
           type="text"
           placeholder="Service"
@@ -54,6 +65,7 @@ export default function Bookings() {
           Book
         </button>
       </form>
+
       <div className="bg-white rounded-xl shadow p-6">
         <h3 className="text-xl font-semibold mb-2">Your Bookings</h3>
         <ul className="space-y-2">

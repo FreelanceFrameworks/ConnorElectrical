@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext";
-import { db } from "../firebase";
+import { db } from "../api/firebase";
 import { ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
 
